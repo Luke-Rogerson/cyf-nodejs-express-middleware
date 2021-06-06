@@ -1,4 +1,5 @@
 import express from "express";
+import { authMiddleware } from "./middleware/auth/auth.js";
 
 const app = express();
 const port = 3000;
@@ -16,7 +17,7 @@ app.post("/register", (_req, res) => {
 });
 
 // this route does require authentication
-app.get("/profile", (_req, res) => {
+app.get("/profile", authMiddleware, (_req, res) => {
   // do a DB lookup to get user data...
   res.send({ firstName: "Luke", email: "luke@gmail.com" });
 });
